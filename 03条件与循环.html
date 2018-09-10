@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+<div id="app">
+    <button @click="handleClick">
+        切换显示
+    </button>
+    <div class="box" v-if="isShow">
+
+</div>
+    <ul>
+        <li v-for="(item, index) in arr" :class="{done: item.isDone}" @click="toggleTodo(index)">
+            {{item.todo}}
+        </li>
+        <input type="checkbox" :checked="isShow">
+    </ul>
+</div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            isShow: true,
+            arr: [
+                {
+                    todo: '吃饭',
+                    isDone: false
+                },
+                {
+                    todo: '睡觉',
+                    isDone: false
+                },
+                {
+                    todo: '打代码',
+                    isDone: true
+                }
+            ]
+        },
+        methods: {
+            handleClick() {
+                this.isShow = !this.isShow
+            },
+            toggleTodo(index) {
+                this.arr[index].isDone = !this.arr[index].isDone
+            }
+        }
+    })
+</script>
+</html>

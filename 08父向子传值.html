@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+<div id="app">
+    <my-btn text="切换" @click.native="handleClick"></my-btn>
+    <my-btn v-bind:text="btnText"></my-btn>
+</div>
+</body>
+<script src="./vue.js"></script>
+<script>
+
+    const myBtn = {
+        props: {
+            text: {
+                type: String
+            }
+        },
+        template: `
+            <button class="my-btn">{{text}}</button>
+        `
+    }
+
+    Vue.component('my-btn', myBtn)
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            btnText: '我的按钮'
+        },
+        methods: {
+            handleClick() {
+                this.btnText = '你的按钮'
+            }
+        }
+    })
+</script>
+</html>

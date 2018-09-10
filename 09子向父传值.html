@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+<div id="app">
+    <my-btn text="切换" @click.native="handleClick"></my-btn>
+    <my-btn v-bind:text="btnText" @to-you="getChild"></my-btn>
+</div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    // 1. 父向子传值利用props
+    // 2. 子向父传值利用events($emit触发一个自定义事件)
+
+
+    const myBtn = {
+        props: {
+            text: {
+                type: String
+            }
+        },
+        data () {
+            return {
+                child: '来自子组件内部的值1'
+            }
+        },
+        template: `
+            <button class="my-btn" @click="toFather">{{text}}</button>
+        `,
+        methods: {
+            toFather() {
+                this.$emit('to-you', this.child)
+            }
+        }
+    }
+
+    Vue.component('my-btn', myBtn)
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            btnText: '我的按钮'
+        },
+        methods: {
+            handleClick() {
+                this.btnText = '你的按钮'
+            },
+            getChild(child) {
+                console.log(child)
+            }
+        }
+    })
+</script>
+</html>

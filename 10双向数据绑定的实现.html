@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--<input type="text" value="998" @input=" newValue => value = newValue">-->
+    <div id="app">
+        <!--<input type="text" v-model="text">-->
+        <!--<h1>{{text}}</h1>-->
+        <h1>父组件的值是: {{num1}}</h1>
+        <button @click="parentAdd">++++</button>
+        <!--<my-component-->
+                <!--v-bind:my-num="num1"-->
+                <!--@add-parent="addSelf"-->
+                <!--@reduce-parent="reduceSelf"-->
+        <!--&gt;</my-component>-->
+        <my-component v-model="num1"></my-component>
+        <my-component></my-component>
+        <my-component></my-component>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    // v-model做了那两件事？
+    // 1. 通过v-bind:value 绑定了一个value
+    // 2. 通过v-on:input 绑定了一个事件处理函数 （newValue） => value = newValue
+    const myComponent = {
+        props: {
+            'my-num': {
+                type: Number
+            },
+            value: {
+                type: Number
+            }
+        },
+        template: `
+            <div>
+                <button @click="reduce">-</button>
+                <strong>{{num}}</strong>
+                <button @click="add">+</button>
+            </div>
+        `,
+        data () {
+            return {
+                // num: this.myNum
+                num: this.value
+            }
+        },
+        methods: {
+            reduce() {
+                //this.myNum-- // 错误的用法
+                // this.$emit('reduce-parent')
+                this.num--
+                this.$emit('input', this.num)
+            },
+            add() {
+                this.$emit('add-parent')
+            }
+        },
+        watch: {
+            myNum(val) {
+                this.num = val
+            },
+            value(val) {
+                this.num = val
+            }
+        }
+    }
+
+    const app = new Vue({
+        components: {
+            myComponent
+        },
+        el: '#app',
+        data: {
+            text: 'hello World!',
+            num1: 10
+        },
+        methods: {
+            parentAdd() {
+                this.num1++
+            },
+            addSelf() {
+                this.num1++
+            },
+            reduceSelf() {
+                this.num1--
+            },
+            changeValue(value) {
+                this.num1 = value
+            }
+        }
+    })
+</script>
+</html>

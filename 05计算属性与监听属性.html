@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    First-name: <input type="text" v-model="firstName">
+    <br>
+    Last-name: <input type="text" v-model="lastName">
+
+    <h1>
+        您的全名是: {{fullName}}
+    </h1>
+</div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            firstName: '',
+            lastName: ''
+        },
+        methods: {
+            showForm() {
+                alert(this.username)
+                alert(this.password)
+            }
+        },
+        computed: {
+            fullName() {
+                return this.firstName + this.lastName
+            }
+        }
+    })
+</script>
+</html>

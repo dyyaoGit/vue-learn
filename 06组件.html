@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div id="app">
+        <my-btn>外边能使不？</my-btn>
+        <my-container></my-container>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    const myBtn = {
+        template: `
+        <button class="my-btn">
+            <slot></slot>
+        </button>`
+    }
+
+    const container = {
+        template: `
+        <h1>
+            我是container
+            <my-btn>局部</my-btn>
+        </h1>
+        `,
+        // components: {
+        //     myBtn
+        // }
+    }
+
+    // 全局注册组件
+    Vue.component('my-container', container)
+    Vue.component('my-btn', myBtn)
+
+    var app = new Vue({
+        el: "#app"
+    })
+</script>
+</html>

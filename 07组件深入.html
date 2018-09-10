@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <my-container></my-container>
+        <my-container></my-container>
+        <my-container></my-container>
+        <my-container></my-container>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+
+    const obj = {
+        num: 0
+    }
+
+    const myContainer = {
+        template: `
+        <div>
+            <button @click="handleReduce">-</button>
+            <strong>{{num}}</strong>
+            <button @click="handleAdd">+</button>
+        </div>`,
+        data () {
+            return {
+                num: 0
+            }
+        },
+        methods: {
+            handleReduce() {
+                this.num--
+            },
+            handleAdd() {
+                this.num++
+            }
+        }
+    }
+
+    const app = new Vue({
+        components: {
+            myContainer
+        },
+        el: '#app',
+        data: {
+            msg: "hello world"
+        },
+        methods: {
+
+        }
+    })
+</script>
+</html>
