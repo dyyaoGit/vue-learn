@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="filterText">
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>入学时间</th>
+            <th>操作</th>
+        </tr>
+        <tr v-for="(item, index) in filterArr">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.date}}</td>
+            <td><a href="javascript:;" @click="del(index)">删除</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            arr: [
+                {
+                    name: 'aaa',
+                    id: 0,
+                    date: new Date()
+                },
+                {
+                    name: 'bbb',
+                    id: 1,
+                    date: new Date()
+                },
+                {
+                    name: 'abc',
+                    id: 2,
+                    date: new Date()
+                }
+            ],
+            filterText: ''
+        },
+        computed: {
+            filterArr() {
+                if(!this.filterText){
+                    return this.arr
+                } else {
+                    return this.arr.filter(item => {
+                        return (item.name.indexOf(this.filterText) != -1)
+                    })
+                }
+            }
+        }
+    })
+</script>
+</html>

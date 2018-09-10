@@ -31,3 +31,7 @@
     border: 10px solid transparent;
     border-top: 10px solid #000;
 }
+
+td, th {
+    border: 1px solid #000;
+}
